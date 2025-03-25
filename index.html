@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌙✨ عید مبارک ✨🌙</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function nextPage() {
+            window.location.href = "message.html";
+        }
+
+        function typeEffect(element, text, delay = 100, callback) {
+            let i = 0;
+            function typing() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typing, delay);
+                } else if (callback) {
+                    callback();
+                }
+            }
+            typing();
+        }
+
+        window.onload = function() {
+            const line1 = document.getElementById("line1");
+            const line2 = document.getElementById("line2");
+            const line3 = document.getElementById("line3");
+
+            typeEffect(line1, "اپنے نام کے ساتھ اپنے پیاروں کے لیے", 80, function() {
+                typeEffect(line2, "ایڈوانس عید الفطر مبارک کا سکرین شاٹ بنوانے کے لیے", 80, function() {
+                    typeEffect(line3, "نیچے بٹن پر دبائیں", 80);
+                });
+            });
+        }
+    </script>
+    <style>
+        body {
+            background-color: black;
+            text-align: center;
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .neon-text {
+            font-size: 40px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ff00ff, 0 0 20px #ff00ff, 0 0 25px #ff00ff;
+            animation: glow 1.5s infinite alternate;
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ff0000; }
+            100% { text-shadow: 0 0 10px #fff, 0 0 20px #ff00ff, 0 0 30px #ff0000; }
+        }
+
+        .message-container {
+            margin-top: 20px;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .neon-text-small {
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #00ffff;
+            animation: blink-neon 1s infinite alternate;
+        }
+
+        @keyframes blink-neon {
+            0% { text-shadow: 0 0 10px #fff, 0 0 20px #ff00ff; }
+            100% { text-shadow: 0 0 5px #fff, 0 0 15px #00ffff; }
+        }
+
+        .neon-border-button {
+            background: none;
+            border: 2px solid white;
+            color: white;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            text-shadow: 0 0 5px #fff, 0 0 10px #00ffff;
+            transition: all 0.3s ease;
+        }
+
+        .neon-border-button:hover {
+            border-color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="neon-text">🌙✨ عید مبارک ✨🌙</h1>
+    
+    <div class="message-container">
+        <p id="line1" class="neon-text-small"></p>
+        <p id="line2" class="neon-text-small"></p>
+        <p id="line3" class="neon-text-small"></p>
+    </div>
+
+    <button class="neon-border-button" onclick="nextPage()">یہاں کلک کریں</button>
+</body>
+</html>

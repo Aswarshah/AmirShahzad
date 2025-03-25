@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>میسج بنائیں</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .container { margin-top: 50px; }
+
+        .neon-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 5px red, 0 0 10px yellow, 0 0 15px green, 0 0 20px blue;
+            animation: neonGlow 2s infinite alternate;
+        }
+
+        @keyframes neonGlow {
+            0% { text-shadow: 0 0 5px red, 0 0 10px yellow, 0 0 15px green, 0 0 20px blue; }
+            50% { text-shadow: 0 0 5px yellow, 0 0 10px green, 0 0 15px blue, 0 0 20px purple; }
+            100% { text-shadow: 0 0 5px green, 0 0 10px blue, 0 0 15px purple, 0 0 20px red; }
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 20px 0;
+            font-size: 18px;
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            text-align: center;
+            outline: none;
+            border-radius: 5px;
+            text-shadow: 0 0 5px white, 0 0 10px white;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .buttons button {
+            padding: 10px 15px;
+            margin: 5px;
+            font-size: 16px;
+            border: 2px solid white;
+            cursor: pointer;
+            border-radius: 5px;
+            background: transparent;
+            color: white;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            text-shadow: 0 0 5px white, 0 0 10px white;
+            animation: buttonBlink 2s infinite alternate;
+        }
+
+        @keyframes buttonBlink {
+            0% { border-color: red; box-shadow: 0 0 5px red; }
+            25% { border-color: yellow; box-shadow: 0 0 5px yellow; }
+            50% { border-color: green; box-shadow: 0 0 5px green; }
+            75% { border-color: blue; box-shadow: 0 0 5px blue; }
+            100% { border-color: purple; box-shadow: 0 0 5px purple; }
+        }
+
+        .send-button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border: 2px solid white;
+            cursor: pointer;
+            border-radius: 5px;
+            background: transparent;
+            color: white;
+            font-weight: bold;
+            text-shadow: 0 0 5px white, 0 0 10px white;
+            animation: buttonBlink 2s infinite alternate;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2 class="neon-text">اپنے پیارے کے لیے عید مبارک کا پیغام بنائیں</h2>
+        <input type="text" id="nameInput" placeholder="اپنا نام لکھیں">
+        <div class="buttons">
+            <button onclick="setRelation('میرے پیارے بھائی کو')">بھائی</button>
+            <button onclick="setRelation('میری پیاری بہن کو')">بہن</button>
+            <button onclick="setRelation('میری پیاری امی کو')">امی</button>
+            <button onclick="setRelation('میرے پیارے ابو کو')">ابو</button>
+            <button onclick="setRelation('میرے پیارے دوست کو')">دوست</button>
+            <button onclick="setRelation('میری پیاری کزن کو')">کزن</button>
+            <button onclick="setRelation('میرے پیارے چاچا کو')">چاچا</button>
+            <button onclick="setRelation('میری پیاری چاچی کو')">چاچی</button>
+            <button onclick="setRelation('میرے پیارے ماموں کو')">ماموں</button>
+            <button onclick="setRelation('میری پیاری مامی کو')">مامی</button>
+            <button onclick="setRelation('میرے پیارے استاد کو')">استاد</button>
+            <button onclick="setRelation('میری پیاری خالہ کو')">خالہ</button>
+            <button onclick="setRelation('میرے پیارے خالو کو')">خالو</button>
+            <button onclick="setRelation('ہمارے پیارے طلباء کو')">سٹوڈنٹس</button>
+            <button onclick="setRelation('ہمارے پیارے طالب علم کو')">سٹوڈنٹ</button>
+            
+        </div>
+
+        <div id="extraInputContainer" style="display: none;">
+            <input type="text" id="extraInput" placeholder="نام لکھیں (جس کو مسج سینڈ کرنا ہے)">
+        </div>
+
+        <button class="send-button" onclick="sendMessage()">سینڈ</button>
+    </div>
+
+    <script>
+        let relation = "";
+
+        function setRelation(selectedRelation) {
+            relation = selectedRelation;
+            document.getElementById("extraInputContainer").style.display = "block";
+        }
+
+        function sendMessage() {
+            let name = document.getElementById("nameInput").value;
+            let extraName = document.getElementById("extraInput").value;
+            
+            if (name === "") {
+                alert("براہ کرم اپنا نام لکھیں");
+                return;
+            }
+
+            let finalRelation = relation;
+            if (extraName !== "") {
+                finalRelation = finalRelation.replace("کو", ` ${extraName} کو`);
+            }
+
+            localStorage.setItem("relation", finalRelation);
+            localStorage.setItem("name", name);
+            window.location.href = "send.html";
+        }
+    </script>
+
+</body>
+</html>
