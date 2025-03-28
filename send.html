@@ -38,16 +38,13 @@
             100% { text-shadow: 0px 0px 16px #FFD700, 0px 0px 32px #FF4500; }
         }
         #message-box {
-            background: rgba(0, 0, 0, 0.7);
             color: white;
             padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(255,255,255,0.4);
-            display: inline-block;
             font-size: 22px;
             line-height: 1.6;
             animation: multiBlink 1.5s infinite alternate;
             max-width: 90%;
+            background: none; /* بیک گراؤنڈ مکمل ختم */
         }
         @keyframes multiBlink {
             0% { text-shadow: 0px 0px 8px white, 0px 0px 16px cyan, 0px 0px 24px blue; }
@@ -102,7 +99,7 @@
         let relationMessage = document.getElementById("relationMessage");
         let senderMessageElement = document.getElementById("senderMessage");
 
-        typeEffect(relationMessage, `${relation} ${receiverName} کو`, 50, function() {
+        typeEffect(relationMessage, `${relation} ${receiverName}`, 50, function() { // "کو" ختم کر دیا
             typeEffect(document.getElementById("senderName"), senderName, 50, function() {
                 typeEffect(senderMessageElement, eidMessage, 50);
             });
