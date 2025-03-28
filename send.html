@@ -1,130 +1,108 @@
-<!DOCTYPE html><html lang="ur">
+<!DOCTYPE html>
+<html lang="ur">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌙🎉 عیدالفطرمبارک 🎉🌙</title>
+    <title>عید الفطر</title>
     <style>
         @font-face {
             font-family: 'Jameel Noori Nastaleeq';
             src: url('https://www.fontsaddict.com/fontface/jameel-noori-nastaleeq.ttf');
-        }body {
-        font-family: 'Jameel Noori Nastaleeq', serif;
-        text-align: center;
-        direction: rtl;
-        background-color: #000;
-        color: white;
-        padding: 10px;
-    }
+        }
+        body {
+            font-family: 'Jameel Noori Nastaleeq', serif;
+            text-align: center;
+            direction: rtl;
+            background-color: #000;
+            color: white;
+            padding: 10px;
+        }
 
-    h1 {
-        font-size: 28px;
-        color: #FFD700;
-        text-shadow: 0px 0px 10px #FFD700, 0px 0px 20px #FF4500;
-        animation: glow 1.5s infinite alternate;
-    }
+        h1 {
+            font-size: 28px;
+            color: #FFD700;
+            text-shadow: 0px 0px 10px #FFD700, 0px 0px 20px #FF4500;
+        }
 
-    @keyframes glow {
-        0% { text-shadow: 0px 0px 8px #FFD700, 0px 0px 16px #FF4500; }
-        100% { text-shadow: 0px 0px 16px #FFD700, 0px 0px 32px #FF4500; }
-    }
+        #message-box {
+            background: black;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(255,255,255,0.4);
+            display: inline-block;
+            font-size: 22px;
+            line-height: 1.6;
+            max-width: 90%;
+        }
 
-    #message-box {
-        background: black;
-        color: white;
-        padding: 10px;
-        border-radius: 10px;
-        box-shadow: 0px 0px 10px rgba(255,255,255,0.4);
-        display: inline-block;
-        font-size: 22px;
-        line-height: 1.6;
-        animation: multiBlink 1.5s infinite alternate;
-        max-width: 90%;
-    }
+        #uploadedImage {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #FFD700;
+            border-radius: 10px;
+            display: none;
+        }
 
-    @keyframes multiBlink {
-        0% { text-shadow: 0px 0px 8px white, 0px 0px 16px cyan, 0px 0px 24px blue; }
-        100% { text-shadow: 0px 0px 16px white, 0px 0px 24px cyan, 0px 0px 32px blue; }
-    }
+        .image-container {
+            position: relative;
+            display: inline-block;
+        }
 
-    #customMessage {
-        width: 80%;
-        height: 80px;
-        font-size: 18px;
-        direction: rtl;
-        padding: 5px;
-        margin-top: 10px;
-    }
+        .name-overlay {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 20px;
+        }
 
-    #updateButton {
-        margin-top: 10px;
-        padding: 10px;
-        font-size: 18px;
-        background: #FFD700;
-        border: none;
-        cursor: pointer;
-        color: black;
-        font-weight: bold;
-        border-radius: 5px;
-    }
-
-    #updateButton:hover {
-        background: #FFA500;
-    }
-</style>
-
+        .bottom-text {
+            margin-top: 10px;
+            font-size: 20px;
+            color: #FFD700;
+        }
+    </style>
 </head>
-<body><h1>🌙🎉 عید مبارک 🎉🌙</h1>
+<body>
+
+<h1>عید الفطر</h1>
 
 <div id="message-box">
-    <h2 id="relationMessage" class="neon-white"></h2>
-    <h3 id="senderName" class="neon-red"></h3>
-    <p id="senderMessage" class="neon-white"></p>
+    <div class="image-container">
+        <span id="nameOverlay" class="name-overlay"></span>
+        <img id="uploadedImage">
+    </div>
+    <p id="senderName"></p>
+    <p id="eidMessage" class="bottom-text">کی طرف سے عید الفطر مبارک ہو</p>
+    <p id="defaultDua" class="bottom-text">
+        ایک خوبصورت دعا 🤲 کےساتھ<br>
+        عید کا خوبصورت دن<br>
+        آپ کی زندگی میں خوشیاں،🤗 محبت 🥰 اور کامیابیاں 👨‍💼 لے کر آئے۔<br>
+        آمین ثم آمین🤲<br>
+        آپ ہمیشہ ہنستے اور مسکراتے رہیں 🥰
+    </p>
 </div>
 
-<textarea id="customMessage" placeholder="اپنی مرضی کی دعا لکھنے کے لیے یہاں پیسٹ کریں"></textarea>
-<br>
-<button id="updateButton">اپڈیٹ</button>
-
 <script>
-    function typeEffect(element, text, speed, callback) {
-        let i = 0;
-        element.innerHTML = ""; 
-        function typing() {
-            if (i < text.length) {
-                element.innerHTML += text.charAt(i);
-                i++;
-                setTimeout(typing, speed);
-            } else if (callback) {
-                callback();
-            }
-        }
-        typing();
+    let senderName = localStorage.getItem("name") || "نام معلوم نہیں";
+    let uploadedImage = localStorage.getItem("uploadedImage") || "";
+
+    document.getElementById("senderName").innerText = senderName;
+    document.getElementById("nameOverlay").innerText = senderName;
+
+    if (uploadedImage) {
+        document.getElementById("uploadedImage").src = uploadedImage;
+        document.getElementById("uploadedImage").style.display = "block";
+        document.getElementById("defaultDua").style.display = "none"; 
+    } else {
+        document.getElementById("uploadedImage").style.display = "none";
+        document.getElementById("defaultDua").style.display = "block"; 
     }
-
-    let relation = localStorage.getItem("relation") || "";
-    let senderName = localStorage.getItem("name") || "";
-    let defaultMessage = "🥰 کی طرف سے\n🎉 ایڈوانس عید الفطر مبارک ہو 🎉\n\n" +
-                  "ایک خوبصورت دعا 🤲 کےساتھ\n" +
-                  "عید کا خوبصورت دن\n" +
-                  "آپ کی زندگی میں خوشیاں،🤗 محبت 🥰 اور کامیابیاں 👨‍💼 لے کر آئے۔\n\n" +
-                  "آمین ثم آمین🤲\n" +
-                  "۔آپ ہمیشہ ہنستے اور مسکراتے رہیں 🥰";
-
-    let senderMessageElement = document.getElementById("senderMessage");
-
-    typeEffect(document.getElementById("relationMessage"), relation, 50, function() {
-        typeEffect(document.getElementById("senderName"), senderName, 50, function() {
-            typeEffect(senderMessageElement, defaultMessage, 50);
-        });
-    });
-
-    document.getElementById("updateButton").addEventListener("click", function() {
-        let newMessage = document.getElementById("customMessage").value;
-        if (newMessage.trim() !== "") {
-            senderMessageElement.innerHTML = "";
-            typeEffect(senderMessageElement, newMessage, 50);
-        }
-    });
 </script>
 
 </body>
