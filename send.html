@@ -3,6 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عید الفطر مبارک</title>
+    <style>
+        @font-face {
+            font-family: 'Jameel Noori Nastaleeq';
+            src: url('https://www.fontsaddict.com/fontface/jameel-noori-nastaleeq.ttf');
+        }
+        body {
+            font-family: 'Jameel Noori Nastaleeq', serif;
+            text-align: center;
+            direction: rtl;
+            background-color: black;
+            color: white;
+            padding: 10px;
+            position: relative;
+        }
+        #backgroundImage {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.2; /* بیک گراؤنڈ تصویر کی اوپیسٹی */
+            z-index: -1;
+        }
+        h1 {
+            font-size: 28px;
+            color: #FFD700;
+            text-shadow: 0px 0px 10px #FFD700, 0px 0px 20px #FF4500;
+            animation: glow 1.5s infinite alternate;
+        }
+        @keyframes glow {
+            0% { text-shadow: 0px 0px 8px #FFD700, 0px 0px 16px #FF4500; }
+            100% { text-shadow: 0px 0px 16px #FFD700, 0px 0px 32px #FF4500; }
+        }
+        #message-box {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(255,255,255,0.4);
+            display: inline-block;
+            font-size: 22px;
+            line-height: 1.6;
+            animation: multiBlink 1.5s infinite alternate;
+            max-width: 90%;
+        }
+        @keyframes multiBlink {
+            0% { text-shadow: 0px 0px 8px white, 0px 0px 16px cyan, 0px 0px 24px blue; }
+            100% { text-shadow: 0px 0px 16px white, 0px 0px 24px cyan, 0px 0px 32px blue; }
+        }
+    </style>
+</head>
+<body>
+
+    <img id="backgroundImage" src="" alt="Uploaded Image">
+    
+    <h1>عید الفطر مبارک</h1>
+
+    <div id="message-box">
+        <h2 id="relationMessage" class="neon-white"></h2>
+        <h3 id="senderName" class="neon-red"></h3>
+        <p id="senderMessage" class="neon-white"></p>
+    </div>
+
+    <script>
+        function typeEffect(element, text, speed, callback) {
+            let i = 0;
+            element.innerHTML = ""; 
+            function typing() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typing, speed);
+                } else if (callback) {
+                    callback();
+                }
+            }
+            typing();
+        }
+
+        let relation = localStorage.getItem("relation") || "میرے پیارے دوست";
+        let receiverName = localStorage.getItem("receiverName") || "نام";
+        let senderName = localStorage.getItem("name") || "آپ کا دوست";
+        let uploadedImage = localStorage.getItem("uploadedImage") || "";
+
+        if (uploadedImage) {
+            document.getElementById("backgroundImage").src = uploadedImage;
+        }
+
+        let eidMessage = "کی طرف سے ایڈوانس عید الفطر مبارک 🎉\n\n" +
+                         "ایک خوبصورت دعا 🤲 کےساتھ\n" +
+                         "عید کا خوبصورت دن\n" +
+                         "آپ کی زندگی میں خوشیاں،🤗 محبت 🥰 اور کامیابیاں 👨‍💼 لے کر آئے۔\n\n" +
+                         "آمین ثم آمین 🤲\n" +
+                         "۔آپ ہمیشہ ہنستے اور مسکراتے رہیں 🥰";
+
+        let relationMessage = document.getElementById("relationMessage");
+        let senderMessageElement = document.getElementById("senderMessage");
+
+        typeEffect(relationMessage, `${relation} ${receiverName} کو`, 50, function() {
+            typeEffect(document.getElementById("senderName"), senderName, 50, function() {
+                typeEffect(senderMessageElement, eidMessage, 50);
+            });
+        });
+    </script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>عید الفطر</title>
     <style>
         @font-face {
