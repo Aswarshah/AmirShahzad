@@ -13,9 +13,10 @@
             font-family: 'Jameel Noori Nastaleeq', serif;
             text-align: center;
             direction: rtl;
-            background-color: #000;
+            background-color: black;
             color: white;
             padding: 10px;
+            position: relative;
         }
 
         h1 {
@@ -24,41 +25,29 @@
             text-shadow: 0px 0px 10px #FFD700, 0px 0px 20px #FF4500;
         }
 
+        #backgroundImage {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.3; /* اوپیسٹی کم کر دی */
+            z-index: -1;
+        }
+
         #message-box {
-            background: black;
+            background: rgba(0, 0, 0, 0.7); /* بیک گراؤنڈ ہلکا کر دیا */
             color: white;
-            padding: 10px;
+            padding: 15px;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(255,255,255,0.4);
             display: inline-block;
             font-size: 22px;
             line-height: 1.6;
             max-width: 90%;
-        }
-
-        #uploadedImage {
-            max-width: 100%;
-            height: auto;
-            border: 2px solid #FFD700;
-            border-radius: 10px;
-            display: none;
-        }
-
-        .image-container {
             position: relative;
-            display: inline-block;
-        }
-
-        .name-overlay {
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 20px;
+            z-index: 1;
         }
 
         .bottom-text {
@@ -72,13 +61,12 @@
 
 <h1>عید الفطر</h1>
 
+<img id="backgroundImage">
+
 <div id="message-box">
-    <div class="image-container">
-        <span id="nameOverlay" class="name-overlay"></span>
-        <img id="uploadedImage">
-    </div>
+    <p id="relationText"></p>
     <p id="senderName"></p>
-    <p id="eidMessage" class="bottom-text">کی طرف سے عید الفطر مبارک ہو</p>
+    <p class="bottom-text">کی طرف سے عید الفطر مبارک ہو</p>
     <p id="defaultDua" class="bottom-text">
         ایک خوبصورت دعا 🤲 کےساتھ<br>
         عید کا خوبصورت دن<br>
@@ -89,19 +77,27 @@
 </div>
 
 <script>
+    let relations = {
+        "chacha": "چچا", "chachi": "چچی",
+        "mama": "ماما", "mami": "مامی",
+        "taya": "تایا", "tai": "تائی",
+        "phupa": "پھوپھا", "phuphi": "پھوپھی",
+        "khalu": "خالہ", "khala": "خالہ",
+        "bhai": "بھائی", "behan": "بہن",
+        "dost": "دوست", "abu": "ابو", "ami": "امی"
+    };
+
+    let relationKey = localStorage.getItem("relation") || "dost";
     let senderName = localStorage.getItem("name") || "نام معلوم نہیں";
     let uploadedImage = localStorage.getItem("uploadedImage") || "";
 
+    document.getElementById("relationText").innerText = relations[relationKey] || "محترم";
     document.getElementById("senderName").innerText = senderName;
-    document.getElementById("nameOverlay").innerText = senderName;
 
     if (uploadedImage) {
-        document.getElementById("uploadedImage").src = uploadedImage;
-        document.getElementById("uploadedImage").style.display = "block";
-        document.getElementById("defaultDua").style.display = "none"; 
+        document.getElementById("backgroundImage").src = uploadedImage;
     } else {
-        document.getElementById("uploadedImage").style.display = "none";
-        document.getElementById("defaultDua").style.display = "block"; 
+        document.getElementById("backgroundImage").style.display = "none";
     }
 </script>
 
