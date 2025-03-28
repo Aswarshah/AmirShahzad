@@ -28,7 +28,7 @@
             100% { text-shadow: 0 0 5px green, 0 0 10px blue, 0 0 15px purple, 0 0 20px red; }
         }
 
-        input {
+        input, .file-input {
             width: 80%;
             padding: 10px;
             margin: 20px 0;
@@ -91,31 +91,23 @@
 
     <div class="container">
         <h2 class="neon-text">اپنے پیارے کے لیے عید مبارک کا پیغام بنائیں</h2>
+        
         <input type="text" id="nameInput" placeholder="اپنا نام لکھیں">
+
         <div class="buttons">
             <button onclick="setRelation('میرے پیارے بھائی کو')">بھائی</button>
             <button onclick="setRelation('میری پیاری بہن کو')">بہن</button>
             <button onclick="setRelation('میری پیاری امی کو')">امی</button>
             <button onclick="setRelation('میرے پیارے ابو کو')">ابو</button>
-            <button onclick="setRelation('میرے پیارے دوست کو')">دوست</button>
-            <button onclick="setRelation('میری پیاری کزن کو')">پیاری کزن</button>
-            <button onclick="setRelation('میرے پیارے کزن کو')">کزن</button>
-            <button onclick="setRelation('میرے پیارے چاچا کو')">چاچا</button>
-            <button onclick="setRelation('میری پیاری چاچی کو')">چاچی</button>
-            <button onclick="setRelation('میرے پیارے ماموں کو')">ماموں</button>
-            <button onclick="setRelation('میری پیاری مامی کو')">مامی</button>
-            <button onclick="setRelation('میرے پیارے استاد کو')">استاد</button>
-            <button onclick="setRelation('میری پیاری خالہ کو')">خالہ</button>
-            <button onclick="setRelation('میرے پیارے خالو کو')">خالو</button>
-            <button onclick="setRelation('ہمارے پیارے طلباء کو')">سٹوڈنٹس</button>
-            <button onclick="setRelation('ہمارے پیارے طالب علم کو')">سٹوڈنٹ</button>
-            
         </div>
 
         <div id="extraInputContainer" style="display: none;">
             <input type="text" id="extraInput" placeholder="نام لکھیں (جس کو مسج سینڈ کرنا ہے)">
         </div>
 
+        <!-- تصویر اپلوڈ کرنے کا نیا سیکشن -->
+        <input type="file" class="file-input" id="imageUpload" accept="image/*">
+        
         <button class="send-button" onclick="sendMessage()">سینڈ</button>
     </div>
 
@@ -130,6 +122,7 @@
         function sendMessage() {
             let name = document.getElementById("nameInput").value;
             let extraName = document.getElementById("extraInput").value;
+            let imageInput = document.getElementById("imageUpload").files[0];
             
             if (name === "") {
                 alert("براہ کرم اپنا نام لکھیں");
@@ -143,7 +136,17 @@
 
             localStorage.setItem("relation", finalRelation);
             localStorage.setItem("name", name);
-            window.location.href = "send.html";
+
+            if (imageInput) {
+                let reader = new FileReader();
+                reader.onload = function(event) {
+                    localStorage.setItem("uploadedImage", event.target.result);
+                    window.location.href = "send.html";
+                };
+                reader.readAsDataURL(imageInput);
+            } else {
+                window.location.href = "send.html";
+            }
         }
     </script>
 
